@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { loginUser } from '@/service/auth.service';
+import { useAuth } from '@/context/AuthContext';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -14,6 +15,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const { setIsAuthenticated } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const Login = () => {
           description: 'Logged in successfully!',
           variant: 'default',
         });
+        setIsAuthenticated(false);
         router.push('/');
       }
     } catch (error: any) {
