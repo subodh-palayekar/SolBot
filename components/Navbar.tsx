@@ -10,7 +10,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
 
   const handleLogout = async () => {
     await logout();
@@ -40,7 +40,10 @@ const Navbar = () => {
           <UserPlus
             className="cursor-pointer"
             size={20}
-            onClick={() => router.push('/login')}
+            onClick={() => {
+              setIsAuthenticated(false);
+              router.push('/login');
+            }}
           />
         )}
 
