@@ -49,11 +49,11 @@ const Login = () => {
   const isFormValid = username.trim() !== '' && password.trim() !== '';
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-zinc-950">
       <div className="min-h-screen w-full dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center flex-col justify-center gap-10">
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_50%,black)]"></div>
 
-        <div className="w-full max-w-md p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
+        <div className="w-full max-w-md p-6 bg-white dark:bg-zinc-950 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700">
           <h2 className="text-2xl font-semibold text-center text-gray-900 dark:text-gray-100">
             Login
           </h2>

@@ -18,8 +18,9 @@ const Navbar = () => {
     setIsAuthenticated(false);
     router.push('/login');
   };
+
   return (
-    <nav className="w-full py-3 px-6 flex items-center  justify-between border-b border-gray-300 dark:border-gray-700 bg-white dark:bg-zinc-950 shadow-md">
+    <nav className="sticky top-0 z-50 w-full py-3 px-6 flex items-center justify-between border-b border-gray-300 dark:border-gray-700 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md shadow-md">
       <div className="flex items-center gap-3">
         <Link href={'/'}>
           <span className="text-xl font-bold tracking-wide text-zinc-900 dark:text-gray-100">

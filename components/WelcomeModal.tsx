@@ -5,6 +5,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
@@ -23,7 +29,21 @@ export const Welcome: React.FC<WelcomeProps> = ({
   const [walletName, setWalletName] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
+  const [isMobile, setIsMobile] = useState<boolean>(false); // Mobile detection state
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 640); // Detects screen size for mobile (sm breakpoint in Tailwind)
+    };
+
+    handleResize(); // Check on initial render
+    window.addEventListener('resize', handleResize); // Add event listener for window resize
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // Cleanup event listener
+    };
+  }, []);
 
   useEffect(() => {
     setIsModalOpen(isModalOpen);
@@ -54,27 +74,60 @@ export const Welcome: React.FC<WelcomeProps> = ({
 
   return (
     <div>
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Create Wallet</DialogTitle>
-          </DialogHeader>
-          <div className="p-4">
-            <Input
-              type="text"
-              placeholder="Enter Wallet Name"
-              value={walletName}
-              onChange={(e) => setWalletName(e.target.value)}
-              className="mb-4"
-            />
-            {isValid && (
-              <Button onClick={handleCreateAccount} disabled={isLoading}>
-                {isLoading ? 'Loading...' : 'Submit'}
-              </Button>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      {isMobile ? (
+        // Drawer for mobile
+        <Sheet open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <SheetContent
+            side="bottom"
+            className="w-full h-[40vh] max-w-md mx-auto"
+          >
+            <SheetHeader>
+              <SheetTitle>Create Wallet</SheetTitle>
+            </SheetHeader>
+            <div className="p-4">
+              <Input
+                type="text"
+                placeholder="Enter Wallet Name"
+                value={walletName}
+                onChange={(e) => setWalletName(e.target.value)}
+                className="mb-4"
+              />
+              {isValid && (
+                <Button
+                  className="w-full mt-3"
+                  onClick={handleCreateAccount}
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Loading...' : 'Submit'}
+                </Button>
+              )}
+            </div>
+          </SheetContent>
+        </Sheet>
+      ) : (
+        // Modal for desktop
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Create Wallet</DialogTitle>
+            </DialogHeader>
+            <div className="p-4">
+              <Input
+                type="text"
+                placeholder="Enter Wallet Name"
+                value={walletName}
+                onChange={(e) => setWalletName(e.target.value)}
+                className="mb-4"
+              />
+              {isValid && (
+                <Button onClick={handleCreateAccount} disabled={isLoading}>
+                  {isLoading ? 'Loading...' : 'Submit'}
+                </Button>
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 };
