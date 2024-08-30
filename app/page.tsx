@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Welcome } from '@/components/WelcomeModal';
 
 const Page = () => {
   const { isAuthenticated } = useAuth();
@@ -41,13 +42,10 @@ const Page = () => {
         </HoverBorderGradient>
       </div>
 
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Click on Accounts to create account</DialogTitle>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <Welcome
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      ></Welcome>
     </div>
   );
 };

@@ -20,16 +20,17 @@ axiosInstance.interceptors.response.use(
 );
 
 // Function to create a crypto account
-export async function createCryptoAccount() {
+export async function createCryptoAccount(walletName: string) {
   try {
-    const response = await axiosInstance.post(`/account`);
-    return response.data;
+    const response = await axiosInstance.post(`/account`, {
+      walletName, // Send walletName in the request body
+    });
+    return response;
   } catch (error) {
     console.error('Error creating account:', error);
     throw new Error('Failed to create account');
   }
 }
-
 // Function to get crypto account details
 export async function getCryptoAccount() {
   try {

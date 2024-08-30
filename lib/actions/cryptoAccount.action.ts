@@ -10,12 +10,12 @@ import CryptoAccount, {
 } from '../database/model/cryptoAccount.model';
 import User from '../database/model/user.model';
 
-export async function createAccount(userId: string) {
+export async function createAccount(userId: string, walletName: string) {
   const mnemonic = generateMnemonic();
 
   const user = await User.findById(userId).select('cryptoAccount');
 
-  const accountNumber = user?.cryptoAccount?.length || 1;
+  const accountNumber = user?.cryptoAccount?.length || 0;
 
   const solKeyPair: Ikeypair = await generateSolanaKeyPair(
     mnemonic,
@@ -40,7 +40,7 @@ export async function createAccount(userId: string) {
   });
 
   const accountPayload: CryptoAccountType = {
-    accountName: `Account ${accountNumber}`,
+    accountName: walletName,
     solWallet: solWallet,
     ethWallet: ethWallet,
   };
@@ -51,5 +51,5 @@ export async function createAccount(userId: string) {
     $push: { cryptoAccount: newAccount },
   });
 
-  return updatedUser;
+  return newAccount;
 }

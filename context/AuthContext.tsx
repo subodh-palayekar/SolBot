@@ -20,8 +20,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     // Verify the user when the component mounts
     const checkAuthStatus = async () => {
-      const isAuth = await verifyUser();
-      setIsAuthenticated(isAuth);
+      try {
+        const isAuth = await verifyUser();
+        setIsAuthenticated(isAuth);
+      } catch (e) {
+        setIsAuthenticated(false);
+      }
     };
 
     checkAuthStatus();

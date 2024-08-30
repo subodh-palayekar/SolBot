@@ -14,7 +14,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    const newAccount = await createAccount(userId);
+    const { walletName } = await req.json();
+
+    const newAccount = await createAccount(userId, walletName);
 
     return NextResponse.json(newAccount, { status: 201 });
   } catch (error) {

@@ -27,13 +27,13 @@ const Login = () => {
     try {
       const response = await loginUser(username, password);
       if (response?.status === 200) {
+        setIsAuthenticated(true);
+        router.push('/');
         toast({
           title: 'Success',
           description: 'Logged in successfully!',
           variant: 'default',
         });
-        setIsAuthenticated(false);
-        router.push('/');
       }
     } catch (error: any) {
       toast({
