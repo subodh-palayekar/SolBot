@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useRouter } from 'next/router'; // Use this instead of 'next/navigation' for client-side navigation
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = '/api';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
