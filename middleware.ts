@@ -3,22 +3,23 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-
   const isPublicPath = ['/login', '/register', '/'].includes(path);
-
   const token = request.cookies.get('token')?.value || '';
 
-  if (isPublicPath && token) {
+  // Redirect authenticated users away from login or register pages
+  if (isPublicPath && token && path !== '/') {
     return NextResponse.redirect(new URL('/', request.nextUrl));
   }
 
+  // Redirect unauthenticated users to the login page
   if (!isPublicPath && !token) {
     return NextResponse.redirect(new URL('/login', request.nextUrl));
   }
+
   return NextResponse.next();
 }
 
-// See "Matching Paths" below to learn more
+// Middleware configuration
 export const config = {
   matcher: [
     '/',

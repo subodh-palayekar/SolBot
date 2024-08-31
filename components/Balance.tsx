@@ -57,8 +57,9 @@ const Balance = ({ accountId }: BalanceParamsType) => {
   }, [coin]);
 
   return (
-    <div className="flex flex-col gap-5 max-w-lg w-full mx-auto px-4 md:px-0">
+    <div className="flex  flex-col gap-5 max-w-lg w-full mx-auto px-4 md:px-0">
       {/* Coin Selector */}
+
       <div className="flex justify-evenly p-2 bg-gray-100 dark:bg-gray-800 border border-primary/10 dark:border-gray-700 rounded-2xl items-center gap-2 sm:gap-4">
         {SUPPORTED_COINS.map((c: string) => (
           <span
@@ -87,7 +88,7 @@ const Balance = ({ accountId }: BalanceParamsType) => {
       </div>
 
       {/* Wallet Details */}
-      <div className="flex flex-col rounded-2xl border border-primary/10">
+      <div className="flex flex-col  rounded-2xl border border-primary/10">
         <div className="flex items-center gap-3 px-4 sm:px-8 py-4">
           <span className="font-bold">Balance</span>
           <div className="flex w-full items-center justify-between">
@@ -120,7 +121,7 @@ const Balance = ({ accountId }: BalanceParamsType) => {
         </div>
 
         {/* Public and Private Key Display */}
-        <div className="flex flex-col gap-6 px-4 sm:px-8 py-4 rounded-2xl bg-secondary/50">
+        <div className="flex  flex-col gap-6 px-4 sm:px-8 py-4 rounded-2xl bg-secondary/50">
           <div className="flex flex-col gap-3">
             <span className="font-bold">Public Key</span>
             <div className="flex items-center gap-3 flex-wrap">
