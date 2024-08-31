@@ -61,7 +61,7 @@ export const Welcome: React.FC<WelcomeProps> = ({
       if (response.status === 201) {
         const accountId = response?.data?._id;
 
-        router.push(`/${accountId}`);
+        router.push(`/wallet/${accountId}`);
       } else {
         console.error('Failed to create account');
       }

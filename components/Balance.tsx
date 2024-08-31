@@ -125,7 +125,7 @@ const Balance = ({ accountId }: BalanceParamsType) => {
             <span className="font-bold">Public Key</span>
             <div className="flex items-center gap-3 flex-wrap">
               {isLoading ? (
-                <Skeleton className="h-10 w-full sm:w-[400px]" />
+                <Skeleton className="h-10 w-full" />
               ) : (
                 <>
                   <span className="text-black dark:text-white break-all">
@@ -148,7 +148,7 @@ const Balance = ({ accountId }: BalanceParamsType) => {
           <div className="flex flex-col gap-3">
             <span className="font-bold">Private Key</span>
             {isLoading ? (
-              <Skeleton className="h-10 w-full sm:w-[400px]" />
+              <Skeleton className="h-10 w-full" />
             ) : (
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="text-black cursor-copy break-all dark:text-white">

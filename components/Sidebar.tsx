@@ -75,7 +75,7 @@ export function Sidebar() {
             userCryptoAccount?.map((account: CryptoAccountType) => (
               <SheetClose asChild key={account._id}>
                 <Button
-                  onClick={() => router.push(`/${account._id}`)}
+                  onClick={() => router.push(`/wallet/${account._id}`)}
                   type="submit"
                 >
                   {account.accountName}
