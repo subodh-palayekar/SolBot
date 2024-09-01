@@ -14,15 +14,18 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { createCryptoAccount } from '@/service/cryptoAccount.service';
+import {
+  checkAccontExist,
+  createCryptoAccount,
+} from '@/service/cryptoAccount.service';
 
 // Define the type for the props
-interface WelcomeProps {
+interface CreateWalletProps {
   isModalOpen: boolean;
   setIsModalOpen: (open: boolean) => void;
 }
 
-export const Welcome: React.FC<WelcomeProps> = ({
+export const CreateWallet: React.FC<CreateWalletProps> = ({
   isModalOpen,
   setIsModalOpen,
 }) => {
@@ -30,6 +33,7 @@ export const Welcome: React.FC<WelcomeProps> = ({
   const [isValid, setIsValid] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false); // Loading state
   const [isMobile, setIsMobile] = useState<boolean>(false); // Mobile detection state
+  const [walletExist, setWalletExist] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -57,6 +61,12 @@ export const Welcome: React.FC<WelcomeProps> = ({
   const handleCreateAccount = async () => {
     setIsLoading(true); // Start loading
     try {
+      const result = await checkAccontExist(walletName);
+      if (result) {
+        setWalletExist(true);
+        return;
+      }
+      setWalletExist(false);
       const response = await createCryptoAccount(walletName);
       if (response.status === 201) {
         const accountId = response?.data?._id;
@@ -84,7 +94,7 @@ export const Welcome: React.FC<WelcomeProps> = ({
             <SheetHeader>
               <SheetTitle>Create Wallet</SheetTitle>
             </SheetHeader>
-            <div className="p-4">
+            <div className="p-4 flex flex-col">
               <Input
                 type="text"
                 placeholder="Enter Wallet Name"
@@ -92,6 +102,11 @@ export const Welcome: React.FC<WelcomeProps> = ({
                 onChange={(e) => setWalletName(e.target.value)}
                 className="mb-4"
               />
+              {walletExist && (
+                <span className="mb-2 text-red-500 font-semibold text-sm">
+                  Wallet Name Already Exist
+                </span>
+              )}
               {isValid && (
                 <Button
                   className="w-full mt-3"
@@ -111,7 +126,7 @@ export const Welcome: React.FC<WelcomeProps> = ({
             <DialogHeader>
               <DialogTitle>Create Wallet</DialogTitle>
             </DialogHeader>
-            <div className="p-4">
+            <div className="p-4 flex flex-col">
               <Input
                 type="text"
                 placeholder="Enter Wallet Name"
@@ -119,6 +134,11 @@ export const Welcome: React.FC<WelcomeProps> = ({
                 onChange={(e) => setWalletName(e.target.value)}
                 className="mb-4"
               />
+              {walletExist && (
+                <span className="mb-2 text-red-500 font-semibold text-sm">
+                  Wallet Name Already Exist
+                </span>
+              )}
               {isValid && (
                 <Button onClick={handleCreateAccount} disabled={isLoading}>
                   {isLoading ? 'Loading...' : 'Submit'}

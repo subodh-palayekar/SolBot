@@ -5,13 +5,7 @@ import Banner from '@/components/Banner';
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { Welcome } from '@/components/WelcomeModal';
+import { CreateWallet } from '@/components/CreateWallet';
 
 const Page = () => {
   const { isAuthenticated } = useAuth();
@@ -42,10 +36,10 @@ const Page = () => {
         </HoverBorderGradient>
       </div>
 
-      <Welcome
+      <CreateWallet
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
-      ></Welcome>
+      ></CreateWallet>
     </div>
   );
 };

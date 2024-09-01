@@ -52,3 +52,13 @@ export async function getCryptoAccountWithWalletDetails(accountId: string) {
     throw new Error('Failed to fetch account with wallet details');
   }
 }
+
+export async function checkAccontExist(accountName: string) {
+  try {
+    const response = await axiosInstance.get(`/account/exist/${accountName}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching account with wallet details:', error); // Updated error message
+    throw new Error('Failed to fetch account with wallet details');
+  }
+}

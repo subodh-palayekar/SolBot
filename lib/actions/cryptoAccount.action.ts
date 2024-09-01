@@ -53,3 +53,27 @@ export async function createAccount(userId: string, walletName: string) {
 
   return newAccount;
 }
+
+export async function doesAccountExist(
+  userId: string,
+  accountName: string
+): Promise<boolean> {
+  try {
+    // Find the user by ID and populate their cryptoAccount array
+    const user = await User.findById(userId).populate('cryptoAccount').exec();
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Check if any of the user's crypto accounts have the given accountName
+    const accountExists = user.cryptoAccount.some(
+      (account: any) => account.accountName === accountName
+    );
+
+    return accountExists;
+  } catch (error) {
+    console.error('Error checking account existence:', error);
+    throw error; // Rethrow error after logging
+  }
+}
