@@ -33,9 +33,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       const solToUsdRate = await getSolToUsdRate();
       accountFullDetails.solWallet.privateKey =
         await accountFullDetails.solWallet.decryptprivateKey().key;
-      // accountFullDetails.solWallet.balance = await getSolanaBalance(
-      //   accountFullDetails?.solWallet?.publicKey
-      // );
 
       accountFullDetails.solWallet.balance = solBalance;
       accountFullDetails.solWallet.balanceInUsd = solBalance * solToUsdRate;
@@ -67,7 +64,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }
 }
 
-export async function getSolanaBalance(publicKey: string): Promise<number> {
+async function getSolanaBalance(publicKey: string): Promise<number> {
   try {
     // Connect to the Solana cluster (using the mainnet beta cluster here)
     const connection = new Connection(
@@ -91,7 +88,7 @@ export async function getSolanaBalance(publicKey: string): Promise<number> {
   }
 }
 
-export async function getEthereumBalance(publicKey: string): Promise<number> {
+async function getEthereumBalance(publicKey: string): Promise<number> {
   try {
     const apiKey = process.env.ALCHEMY_API_KEY;
     const url = `https://eth-mainnet.g.alchemy.com/v2/${apiKey}`;
@@ -120,7 +117,7 @@ export async function getEthereumBalance(publicKey: string): Promise<number> {
   }
 }
 
-export async function getSolToUsdRate(): Promise<number> {
+async function getSolToUsdRate(): Promise<number> {
   try {
     const response = await axios.get(
       'https://api.binance.com/api/v3/ticker/price?symbol=SOLUSDT'
@@ -134,7 +131,7 @@ export async function getSolToUsdRate(): Promise<number> {
   }
 }
 
-export async function getEthToUsdRate(): Promise<number> {
+async function getEthToUsdRate(): Promise<number> {
   try {
     const response = await axios.get(
       'https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT'
