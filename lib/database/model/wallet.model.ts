@@ -8,6 +8,7 @@ export type WalletType = {
   publicKey: string;
   privateKey: string;
   balance: string;
+  balanceInUsd: string;
 };
 
 const walletSchema = new Schema({
@@ -22,6 +23,9 @@ const walletSchema = new Schema({
     unique: true,
   },
   balance: {
+    type: String,
+  },
+  balanceInUsd: {
     type: String,
   },
 });

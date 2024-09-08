@@ -32,7 +32,9 @@ const Page = () => {
           onClick={handleClick}
           className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
         >
-          <span>Get Started With TelSol</span>
+          <span>
+            {isAuthenticated ? 'Create Wallet' : 'Get Started With SolBot'}
+          </span>
         </HoverBorderGradient>
       </div>
 

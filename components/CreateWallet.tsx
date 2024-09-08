@@ -60,13 +60,13 @@ export const CreateWallet: React.FC<CreateWalletProps> = ({
 
   const handleCreateAccount = async () => {
     setIsLoading(true); // Start loading
+    setWalletExist(false);
     try {
       const result = await checkAccontExist(walletName);
-      if (result) {
+      if (result?.exists) {
         setWalletExist(true);
         return;
       }
-      setWalletExist(false);
       const response = await createCryptoAccount(walletName);
       if (response.status === 201) {
         const accountId = response?.data?._id;

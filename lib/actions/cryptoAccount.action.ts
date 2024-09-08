@@ -27,16 +27,18 @@ export async function createAccount(userId: string, walletName: string) {
     accountNumber
   );
 
-  const solWallet = await SolWallet.create({
+  const solWallet: WalletType = await SolWallet.create({
     publicKey: solKeyPair.publicKey,
     privateKey: solKeyPair.privateKey,
     balance: '0',
+    balanceInUsd: '0',
   });
 
   const ethWallet: WalletType = await EthWallet.create({
     publicKey: ethKeypair.publicKey,
     privateKey: ethKeypair.privateKey,
     balance: '0',
+    balanceInUsd: '0',
   });
 
   const accountPayload: CryptoAccountType = {
