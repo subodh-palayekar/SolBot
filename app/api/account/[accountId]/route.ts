@@ -30,25 +30,35 @@ export async function GET(req: NextRequest, res: NextResponse) {
       const solBalance = await getSolanaBalance(
         accountFullDetails?.solWallet?.publicKey
       );
-      const solToUsdRate = await getSolToUsdRate();
-      accountFullDetails.solWallet.privateKey =
-        await accountFullDetails.solWallet.decryptprivateKey().key;
 
-      accountFullDetails.solWallet.balance = solBalance;
-      accountFullDetails.solWallet.balanceInUsd = solBalance * solToUsdRate;
-      console.log(accountFullDetails, solBalance * solToUsdRate, solToUsdRate);
+      if (solBalance !== 0) {
+        const solToUsdRate = await getSolToUsdRate();
+        accountFullDetails.solWallet.privateKey =
+          await accountFullDetails.solWallet.decryptprivateKey().key;
+
+        accountFullDetails.solWallet.balance = solBalance;
+        accountFullDetails.solWallet.balanceInUsd = solBalance * solToUsdRate;
+        console.log(
+          accountFullDetails,
+          solBalance * solToUsdRate,
+          solToUsdRate
+        );
+      }
     }
 
     if (accountFullDetails.ethWallet) {
       const ethBalance = await getEthereumBalance(
         accountFullDetails?.ethWallet?.publicKey
       );
-      const ethToUsdRate = await getEthToUsdRate();
-      accountFullDetails.ethWallet.privateKey =
-        await accountFullDetails.ethWallet.decryptprivateKey().key;
 
-      accountFullDetails.ethWallet.balance = ethBalance;
-      accountFullDetails.ethWallet.balanceInUsd = ethBalance * ethToUsdRate;
+      if (ethBalance !== 0) {
+        const ethToUsdRate = await getEthToUsdRate();
+        accountFullDetails.ethWallet.privateKey =
+          await accountFullDetails.ethWallet.decryptprivateKey().key;
+
+        accountFullDetails.ethWallet.balance = ethBalance;
+        accountFullDetails.ethWallet.balanceInUsd = ethBalance * ethToUsdRate;
+      }
     }
 
     if (!accountFullDetails) {
