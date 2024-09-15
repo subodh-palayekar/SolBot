@@ -1,5 +1,5 @@
 import { model, models, Schema } from 'mongoose';
-
+import { generateMnemonic } from 'bip39';
 import bcrypt from 'bcryptjs';
 import { CryptoAccountType } from './cryptoAccount.model';
 
@@ -9,6 +9,7 @@ export type UserType = {
   password: string;
   profileImage?: string | null;
   cryptoAccount: CryptoAccountType;
+  mnemonic?: string[];
 };
 
 const userSchema = new Schema({
@@ -31,6 +32,7 @@ const userSchema = new Schema({
       ref: 'CryptoAccount',
     },
   ],
+  mnemonic: [String],
 });
 
 userSchema.pre('save', async function (next) {
@@ -42,6 +44,15 @@ userSchema.pre('save', async function (next) {
       user.password = await bcrypt.hash(user.password, salt);
     } catch (err) {
       throw new Error('Unable to encrypt password');
+    }
+  }
+
+  if (!user.mnemonic || user.mnemonic.length === 0) {
+    try {
+      const mnemonic = generateMnemonic();
+      user.mnemonic = mnemonic.split(' ');
+    } catch (err) {
+      return next(new Error('Unable to generate mnemonic'));
     }
   }
 

@@ -58,7 +58,17 @@ export async function checkAccontExist(accountName: string) {
     const response = await axiosInstance.get(`/account/exist/${accountName}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching account with wallet details:', error); // Updated error message
+    console.error('Error fetching account with wallet details:', error);
     throw new Error('Failed to fetch account with wallet details');
+  }
+}
+
+export async function getMnemonic() {
+  try {
+    const response = await axiosInstance.get(`/secret`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching secret of user:', error);
+    throw new Error('Failed to fetch secret of user');
   }
 }

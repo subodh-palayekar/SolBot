@@ -76,10 +76,10 @@ const Balance = ({ accountId }: BalanceParamsType) => {
   }, [coin]);
 
   return (
-    <div className="flex flex-col gap-5 max-w-lg w-full mx-auto px-4 md:px-0">
+    <div className="flex flex-col gap-5 max-w-lg w-full mx-auto px-4 md:px-0 border border-primary/10 rounded-2xl">
       {/* Coin Selector */}
-      <div className="dark:bg-[#040307] bg-[#c0b3fb] p-4 rounded-2xl">
-        <div className="flex justify-evenly p-2 bg-gray-100 dark:bg-gray-800 border border-primary/10 dark:border-gray-700 rounded-2xl items-center gap-2 sm:gap-4">
+      <div className="dark:bg-[#040307] bg-[#fdfdff] p-4 rounded-2xl">
+        <div className="flex justify-evenly p-2 bg-gray-100 dark:bg-gray-800 border border-primary/10  dark:border-gray-700 rounded-2xl items-center gap-2 sm:gap-4">
           {SUPPORTED_COINS.map((c: string) => (
             <span
               key={c}

@@ -65,6 +65,15 @@ export function Sidebar() {
         </SheetHeader>
 
         <div className="flex flex-col gap-3">
+          <SheetClose asChild>
+            <Button
+              variant="destructive"
+              onClick={() => router.push(`/secret`)}
+              type="submit"
+            >
+              Show Secret Phrase
+            </Button>
+          </SheetClose>
           {isLoading ? (
             <>
               <Skeleton className="h-10 w-full" />

@@ -11,9 +11,9 @@ import CryptoAccount, {
 import User from '../database/model/user.model';
 
 export async function createAccount(userId: string, walletName: string) {
-  const mnemonic = generateMnemonic();
+  const user = await User.findById(userId).select('cryptoAccount mnemonic');
 
-  const user = await User.findById(userId).select('cryptoAccount');
+  const mnemonic = user?.mnemonic?.join(' ');
 
   const accountNumber = user?.cryptoAccount?.length || 0;
 

@@ -29,8 +29,8 @@ const Navbar = () => {
       <div className="flex items-center gap-3">
         <Link className="flex justify-center items-center gap-4" href={'/'}>
           <Image src="/assets/logo.png" width={40} height={40} alt="logo" />
-          <span className="px-2 py-0.5 text-xs font-medium bg-gray-200 dark:bg-zinc-800 text-zinc-700 dark:text-gray-300 rounded-full">
-            v1
+          <span className="px-2 py-0.5 text-xs border border-primary/10 font-extrabold bg-gray-200 dark:bg-zinc-800 text-zinc-700 dark:text-gray-300 rounded-full">
+            v1.1
           </span>
         </Link>
 
