@@ -4,7 +4,7 @@ import { LinkPreview } from './ui/link-preview';
 const Credits = () => {
   return (
     <div className="flex flex-wrap gap-1 fixed bottom-6">
-      <p>Design & Developed By</p>
+      <p>Designed & Developed By</p>
       <LinkPreview
         height={70}
         width={70}
