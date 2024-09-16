@@ -27,6 +27,7 @@ export function Sidebar() {
   const router = useRouter();
 
   const getUserCryptoAccount = async () => {
+    if (!isAuthenticated) return;
     try {
       setIsLoading(true);
       const accounts = await getCryptoAccount();

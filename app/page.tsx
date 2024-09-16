@@ -6,6 +6,7 @@ import { HoverBorderGradient } from '@/components/ui/hover-border-gradient';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { CreateWallet } from '@/components/CreateWallet';
+import Credits from '@/components/Credits';
 
 const Page = () => {
   const { isAuthenticated } = useAuth();
@@ -36,6 +37,7 @@ const Page = () => {
             {isAuthenticated ? 'Create Wallet' : 'Get Started With SolBot'}
           </span>
         </HoverBorderGradient>
+        <Credits />
       </div>
 
       <CreateWallet
